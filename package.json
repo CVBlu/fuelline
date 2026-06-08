@@ -1,0 +1,12 @@
+{
+    "name": "fuelline",
+    "version": "1.0.0",
+    "description": "Real-time fuel terminal wait times and status for truck drivers and dispatchers.",
+    "main": "server.js",
+    "scripts": {
+          "start": "node server.js"
+    },
+    "dependencies": {
+          "express": "^4.18.2"
+    }
+}

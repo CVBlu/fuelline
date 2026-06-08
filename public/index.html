@@ -23,342 +23,59 @@
     --amber: #f59e0b;
     --blue: #3b82f6;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-  }
-
-  /* ── Banner ── */
-  .banner-wrap {
-    width: 100%;
-    background: #0a0c10;
-    padding: 12px 16px 0;
-    display: flex;
-    justify-content: center;
-  }
-  .banner-wrap img {
-    width: 100%;
-    max-width: 680px;
-    height: auto;
-    display: block;
-    border-radius: 12px;
-  }
-
-  /* ── Sticky nav bar under banner ── */
-  .nav-bar {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 16px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .nav-inner {
-    max-width: 680px;
-    margin: 0 auto;
-    height: 46px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .region-badge {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted2);
-    background: var(--surface2);
-    border: 1px solid var(--border2);
-    padding: 4px 12px;
-    border-radius: 4px;
-  }
-  .live-dot-wrap {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted2);
-  }
-  .live-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 6px var(--green);
-    animation: pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  /* ── Main container ── */
-  main {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 14px 16px 32px;
-  }
-
-  /* ── Summary strip ── */
-  .summary-strip {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 14px;
-  }
-  .summary-pill {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    background: var(--surface);
-    border: 1px solid var(--border2);
-    border-radius: 6px;
-    padding: 8px 14px;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--muted2);
-    flex: 1;
-    justify-content: center;
-  }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+  .banner-wrap { width: 100%; background: #0a0c10; padding: 0; display: flex; justify-content: center; position: sticky; top: 0; z-index: 100; overflow: hidden; max-height: 90px; border-bottom: 2px solid #2a0509; }
+  .banner-wrap img { width: 100%; max-width: 680px; height: 90px; object-fit: cover; object-position: center 30%; display: block; }
+  .nav-bar { display: none; }
+  main { max-width: 680px; margin: 0 auto; padding: 14px 16px 32px; }
+  .summary-strip { display: flex; gap: 8px; margin-bottom: 14px; }
+  .summary-pill { display: flex; align-items: center; gap: 7px; background: var(--surface); border: 1px solid var(--border2); border-radius: 6px; padding: 8px 14px; font-family: 'Rajdhani', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted2); flex: 1; justify-content: center; }
   .pill-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .dot-green { background: var(--green); box-shadow: 0 0 6px var(--green); }
   .dot-amber { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
   .dot-red { background: var(--red); box-shadow: 0 0 5px var(--red); }
-
-  /* ── Section label ── */
-  .section-label {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-    padding-left: 2px;
-    border-left: 2px solid var(--red);
-    padding-left: 8px;
-  }
-
-  /* ── Terminal card ── */
-  .terminal-card {
-    background: var(--surface);
-    border: 1px solid var(--border2);
-    border-radius: 12px;
-    margin-bottom: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
-  }
-  .terminal-card:hover {
-    border-color: var(--red);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 20px rgba(204,17,34,0.12);
-  }
+  .section-label { font-family: 'Rajdhani', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; border-left: 2px solid var(--red); padding-left: 8px; }
+  .terminal-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 12px; margin-bottom: 10px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s; }
+  .terminal-card:hover { border-color: var(--red); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(204,17,34,0.12); }
   .terminal-card.status-closed { opacity: 0.55; }
-
-  /* Card top: name + wait */
-  .card-top {
-    padding: 14px 16px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
+  .card-top { padding: 14px 16px 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .card-left { flex: 1; min-width: 0; }
-
-  .status-stripe {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-  }
+  .status-stripe { display: inline-flex; align-items: center; gap: 5px; font-family: 'Rajdhani', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; }
   .stripe-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
   .stripe-open { color: var(--green); }
   .stripe-busy { color: var(--amber); }
   .stripe-closed { color: var(--red); }
-
-  .terminal-name {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    color: var(--text);
-    line-height: 1.1;
-    margin-bottom: 4px;
-  }
-  .terminal-address {
-    font-size: 12px;
-    color: var(--muted2);
-    margin-bottom: 5px;
-    line-height: 1.3;
-  }
-  .terminal-meta {
-    font-size: 12px;
-    color: var(--muted2);
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  /* Wait time box */
-  .wait-box {
-    text-align: center;
-    flex-shrink: 0;
-    background: var(--surface2);
-    border: 1px solid var(--border2);
-    border-radius: 10px;
-    padding: 10px 14px;
-    min-width: 72px;
-  }
-  .wait-number {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 42px;
-    line-height: 1;
-  }
-  .wait-unit {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 2px;
-  }
+  .terminal-name { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 20px; color: var(--text); line-height: 1.1; margin-bottom: 4px; }
+  .terminal-address { font-size: 12px; color: var(--muted2); margin-bottom: 5px; line-height: 1.3; }
+  .terminal-meta { font-size: 12px; color: var(--muted2); display: flex; gap: 12px; flex-wrap: wrap; }
+  .wait-box { text-align: center; flex-shrink: 0; background: var(--surface2); border: 1px solid var(--border2); border-radius: 10px; padding: 10px 14px; min-width: 72px; }
+  .wait-number { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 42px; line-height: 1; }
+  .wait-unit { font-family: 'Rajdhani', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
   .wait-green { color: var(--green); }
   .wait-amber { color: var(--amber); }
   .wait-red { color: var(--red); }
   .wait-closed { color: var(--muted); }
-
-  /* Lanes */
-  .card-lanes {
-    padding: 0 16px 10px;
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .lane-pill {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 5px;
-  }
+  .card-lanes { padding: 0 16px 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .lane-pill { font-family: 'Rajdhani', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 5px; }
   .lane-open { background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.2); }
   .lane-busy { background: rgba(245,158,11,0.1); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
   .lane-closed-pill { background: rgba(204,17,34,0.08); color: var(--red); border: 1px solid rgba(204,17,34,0.2); text-decoration: line-through; }
-
-  /* Products */
-  .card-products {
-    padding: 0 16px 12px;
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-  }
-  .prod-tag {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 3px 9px;
-    border-radius: 4px;
-    background: var(--surface2);
-    color: var(--muted2);
-    border: 1px solid var(--border2);
-  }
+  .card-products { padding: 0 16px 12px; display: flex; gap: 5px; flex-wrap: wrap; }
+  .prod-tag { font-family: 'Rajdhani', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 9px; border-radius: 4px; background: var(--surface2); color: var(--muted2); border: 1px solid var(--border2); }
   .prod-unavail { color: var(--red); text-decoration: line-through; border-color: rgba(204,17,34,0.2); opacity: 0.6; }
-
-  /* Card footer */
-  .card-footer {
-    border-top: 1px solid var(--border);
-    padding: 9px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    color: var(--muted);
-  }
-  .report-btn {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--red);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: opacity 0.15s;
-  }
+  .card-footer { border-top: 1px solid var(--border); padding: 9px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted); }
+  .report-btn { font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--red); background: none; border: none; cursor: pointer; padding: 0; transition: opacity 0.15s; }
   .report-btn:hover { opacity: 0.75; }
-
-  /* ── Modal ── */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 200;
-    padding: 16px;
-    overflow-y: auto;
-  }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; padding: 16px; overflow-y: auto; }
   .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; padding-top: 36px; }
-  .modal {
-    background: var(--surface);
-    border: 1px solid var(--border2);
-    border-radius: 16px;
-    width: 100%;
-    max-width: 480px;
-    overflow: hidden;
-    animation: slideUp 0.2s ease;
-  }
+  .modal { background: var(--surface); border: 1px solid var(--border2); border-radius: 16px; width: 100%; max-width: 480px; overflow: hidden; animation: slideUp 0.2s ease; }
   @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-  .modal-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--surface2);
-  }
-  .modal-title {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    letter-spacing: 0.5px;
-  }
-  .modal-close {
-    background: none;
-    border: none;
-    color: var(--muted);
-    font-size: 22px;
-    cursor: pointer;
-    line-height: 1;
-    padding: 0 4px;
-  }
+  .modal-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface2); }
+  .modal-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.5px; }
+  .modal-close { background: none; border: none; color: var(--muted); font-size: 22px; cursor: pointer; line-height: 1; padding: 0 4px; }
   .modal-close:hover { color: var(--text); }
   .modal-body { padding: 20px; }
-
-  /* Detail stats */
   .detail-stats { display: flex; gap: 8px; margin-bottom: 20px; }
   .detail-stat { flex: 1; background: var(--surface2); border: 1px solid var(--border2); border-radius: 8px; padding: 12px 8px; text-align: center; }
   .detail-stat-val { font-family: 'Rajdhani', sans-serif; font-size: 30px; font-weight: 700; color: var(--red); line-height: 1; }
@@ -376,8 +93,6 @@
   .prod-status-ok { color: var(--green); font-size: 16px; }
   .prod-status-no { color: var(--red); font-size: 16px; }
   .prod-note { font-size: 11px; color: var(--muted); }
-
-  /* Report form */
   .form-label { font-family: 'Rajdhani', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted2); display: block; margin-bottom: 8px; margin-top: 16px; }
   .form-label:first-child { margin-top: 0; }
   .wait-options { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -392,40 +107,23 @@
   .submit-btn { width: 100%; margin-top: 20px; padding: 14px; background: var(--red); color: #fff; border: none; border-radius: 8px; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: opacity 0.15s; }
   .submit-btn:hover { opacity: 0.88; }
   .submit-btn:disabled { opacity: 0.35; cursor: default; }
-
-  /* Toast */
   .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--green); color: #0a0c10; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; padding: 12px 24px; border-radius: 8px; transition: transform 0.3s ease; z-index: 300; white-space: nowrap; }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.error { background: var(--red); color: #fff; }
-
   .loading { text-align: center; padding: 60px 20px; color: var(--muted); font-family: 'Rajdhani', sans-serif; font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase; }
   .closed-banner { background: rgba(204,17,34,0.08); border: 1px solid var(--red-border); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--red); font-weight: 500; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-
-  /* Divider between cards */
-  .terminal-card + .terminal-card { margin-top: 10px; }
 </style>
 </head>
 <body>
-
-<!-- Banner -->
 <div class="banner-wrap">
   <img src="/banner.png" alt="FuelLine — Your Road to a Faster Load">
 </div>
-
-<!-- Sticky nav -->
-<div class="nav-bar">
-  <div class="nav-inner">
-    <div class="region-badge">📍 Chicago Region</div>
-    <div class="live-dot-wrap"><div class="live-dot"></div> Live</div>
-  </div>
-</div>
-
+<div class="nav-bar"></div>
 <main>
   <div class="summary-strip" id="summaryStrip"></div>
   <div class="section-label">Terminals — Sorted by Distance</div>
   <div id="terminalList"><div class="loading">Loading terminals...</div></div>
 </main>
-
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal" id="modal">
     <div class="modal-header">
@@ -435,303 +133,136 @@
     <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
-// ─── Geofence deactivated for testing ───────────────────────────────────────
 const GEOFENCE_ENABLED = false;
 const GEOFENCE_RADIUS_METERS = 402;
-
-// ─── State ──────────────────────────────────────────────────────────────────
+const RADIUS_MILES = 50;
 let terminals = [];
 let activeTerminalId = null;
 let selectedWait = null;
 let selectedIssues = [];
-
-// ─── Geofence/distance helpers ───────────────────────────────────────────────
-function getDistanceMeters(lat1, lng1, lat2, lng2) {
-  const R = 6371000;
-  const toRad = deg => deg * Math.PI / 180;
-  const dLat = toRad(lat2 - lat1);
-  const dLng = toRad(lng2 - lng1);
-  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-}
-function metersToFeet(m) { return Math.round(m * 3.281); }
-
-// ─── Load terminals ──────────────────────────────────────────────────────────
-const RADIUS_MILES = 50;
 let driverLat = null;
 let driverLng = null;
-
+function getDistanceMeters(lat1, lng1, lat2, lng2) {
+const R = 6371000;
+const toRad = deg => deg * Math.PI / 180;
+const dLat = toRad(lat2 - lat1);
+const dLng = toRad(lng2 - lng1);
+const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
+return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+function metersToFeet(m) { return Math.round(m * 3.281); }
 function metersToMiles(m) { return m / 1609.34; }
-
 async function loadTerminals() {
-  try {
-    const res = await fetch('/api/terminals');
-    const all = await res.json();
-
-    // Try to get driver location for radius filtering
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          driverLat = pos.coords.latitude;
-          driverLng = pos.coords.longitude;
-          terminals = all.filter(t => {
-            const dist = metersToMiles(getDistanceMeters(driverLat, driverLng, t.latitude, t.longitude));
-            return dist <= RADIUS_MILES;
-          });
-          if (!terminals.length) {
-            document.getElementById('terminalList').innerHTML =
-              '<div class="loading">No terminals within 50 miles of your location.</div>';
-            renderSummary();
-            return;
-          }
-          renderSummary();
-          renderList();
-        },
-        () => {
-          // Location denied or unavailable — show all terminals
-          terminals = all;
-          renderSummary();
-          renderList();
-        },
-        { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
-      );
-    } else {
-      terminals = all;
-      renderSummary();
-      renderList();
-    }
-  } catch (e) {
-    document.getElementById('terminalList').innerHTML =
-      '<div class="loading">Could not load terminals. Please refresh.</div>';
-  }
+try {
+const res = await fetch('/api/terminals');
+const all = await res.json();
+if (navigator.geolocation) {
+navigator.geolocation.getCurrentPosition(
+pos => {
+driverLat = pos.coords.latitude;
+driverLng = pos.coords.longitude;
+terminals = all.filter(t => metersToMiles(getDistanceMeters(driverLat, driverLng, t.latitude, t.longitude)) <= RADIUS_MILES);
+if (!terminals.length) {
+document.getElementById('terminalList').innerHTML = '<div class="loading">No terminals within 50 miles of your location.</div>';
+renderSummary(); return;
 }
-
-// ─── Summary strip ───────────────────────────────────────────────────────────
+renderSummary(); renderList();
+},
+() => { terminals = all; renderSummary(); renderList(); },
+{ enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+);
+} else { terminals = all; renderSummary(); renderList(); }
+} catch (e) {
+document.getElementById('terminalList').innerHTML = '<div class="loading">Could not load terminals. Please refresh.</div>';
+}
+}
 function renderSummary() {
-  const open   = terminals.filter(t => t.status === 'open').length;
-  const busy   = terminals.filter(t => t.status === 'busy').length;
-  const closed = terminals.filter(t => t.status === 'closed').length;
-  document.getElementById('summaryStrip').innerHTML = `
-    <div class="summary-pill"><div class="pill-dot dot-green"></div>${open} Open</div>
-    <div class="summary-pill"><div class="pill-dot dot-amber"></div>${busy} Busy</div>
-    <div class="summary-pill"><div class="pill-dot dot-red"></div>${closed} Closed</div>
-  `;
+const open = terminals.filter(t => t.status === 'open').length;
+const busy = terminals.filter(t => t.status === 'busy').length;
+const closed = terminals.filter(t => t.status === 'closed').length;
+document.getElementById('summaryStrip').innerHTML =      <div class="summary-pill"><div class="pill-dot dot-green"></div>${open} Open</div>     <div class="summary-pill"><div class="pill-dot dot-amber"></div>${busy} Busy</div>     <div class="summary-pill"><div class="pill-dot dot-red"></div>${closed} Closed</div>;
 }
-
 function waitClass(t) {
-  if (t.status === 'closed') return 'wait-closed';
-  if (t.wait_minutes < 20) return 'wait-green';
-  if (t.wait_minutes < 50) return 'wait-amber';
-  return 'wait-red';
+if (t.status === 'closed') return 'wait-closed';
+if (t.wait_minutes < 20) return 'wait-green';
+if (t.wait_minutes < 50) return 'wait-amber';
+return 'wait-red';
 }
-function waitDisplay(t) {
-  return t.status === 'closed' ? '--' : t.wait_minutes;
-}
-function statusLabel(s) {
-  return s === 'open' ? 'Open' : s === 'busy' ? 'Busy' : 'Closed';
-}
-
-// ─── Terminal list ────────────────────────────────────────────────────────────
+function waitDisplay(t) { return t.status === 'closed' ? '--' : t.wait_minutes; }
+function statusLabel(s) { return s === 'open' ? 'Open' : s === 'busy' ? 'Busy' : 'Closed'; }
 function renderList() {
-  const container = document.getElementById('terminalList');
-  if (!terminals.length) { container.innerHTML = '<div class="loading">No terminals found.</div>'; return; }
-  container.innerHTML = terminals.map(t => `
-    <div class="terminal-card status-${t.status}" onclick="openDetail(${t.id})">
-      <div class="card-top">
-        <div class="card-left">
-          <div class="status-stripe stripe-${t.status}">
-            <div class="stripe-dot" style="background:${t.status==='open'?'var(--green)':t.status==='busy'?'var(--amber)':'var(--red)'}"></div>
-            ${statusLabel(t.status)}
-          </div>
-          <div class="terminal-name">${t.name}</div>
-          <div class="terminal-address">${t.address}</div>
-          <div class="terminal-meta">
-            <span>📍 ${t.distance_miles} mi away</span>
-            <span>🚛 ${t.trucks_in_queue} in queue</span>
-          </div>
-        </div>
-        <div class="wait-box">
-          <div class="wait-number ${waitClass(t)}">${waitDisplay(t)}</div>
-          <div class="wait-unit">${t.status === 'closed' ? 'CLOSED' : 'MIN WAIT'}</div>
-        </div>
-      </div>
-      <div class="card-lanes">
-        ${t.lanes.map(l => `
-          <div class="lane-pill lane-${l.status === 'closed' ? 'closed-pill' : l.status}">
-            Lane ${l.number}${l.status === 'closed' ? ' ✕' : ''}
-          </div>`).join('')}
-      </div>
-      <div class="card-products">
-        ${t.products.map(p => `
-          <div class="prod-tag ${p.available ? '' : 'prod-unavail'}">${p.name}</div>`).join('')}
-      </div>
-      <div class="card-footer">
-        <span>Updated ${t.last_updated}</span>
-        <button class="report-btn" onclick="event.stopPropagation(); openReport(${t.id})">
-          + Report Wait Time
-        </button>
-      </div>
-    </div>
-  `).join('');
+const container = document.getElementById('terminalList');
+if (!terminals.length) { container.innerHTML = '<div class="loading">No terminals found.</div>'; return; }
+container.innerHTML = terminals.map(t =>     <div class="terminal-card status-${t.status}" onclick="openDetail(${t.id})">       <div class="card-top">         <div class="card-left">           <div class="status-stripe stripe-${t.status}">             <div class="stripe-dot" style="background:${t.status==='open'?'var(--green)':t.status==='busy'?'var(--amber)':'var(--red)'}"></div>             ${statusLabel(t.status)}           </div>           <div class="terminal-name">${t.name}</div>           <div class="terminal-address">${t.address}</div>           <div class="terminal-meta">             <span>📍 ${t.distance_miles} mi away</span>             <span>🚛 ${t.trucks_in_queue} in queue</span>           </div>         </div>         <div class="wait-box">           <div class="wait-number ${waitClass(t)}">${waitDisplay(t)}</div>           <div class="wait-unit">${t.status === 'closed' ? 'CLOSED' : 'MIN WAIT'}</div>         </div>       </div>       <div class="card-lanes">         ${t.lanes.map(l =><div class="lane-pill lane-${l.status === 'closed' ? 'closed-pill' : l.status}">Lane l.number{l.number}
+l.number{l.status === 'closed' ? ' ✕' : ''}</div>).join('')}       </div>       <div class="card-products">         ${t.products.map(p => <div class="prod-tag ${p.available ? '' : 'prod-unavail'}">${p.name}</div>).join('')}       </div>       <div class="card-footer">         <span>Updated ${t.last_updated}</span>         <button class="report-btn" onclick="event.stopPropagation(); openReport(${t.id})">+ Report Wait Time</button>       </div>     </div>).join('');
 }
-
-// ─── Detail modal ─────────────────────────────────────────────────────────────
 function openDetail(id) {
-  const t = terminals.find(t => t.id === id);
-  if (!t) return;
-  activeTerminalId = id;
-  document.getElementById('modalTitle').textContent = t.name;
-  const openLanes = t.lanes.filter(l => l.status === 'open').length;
-  document.getElementById('modalBody').innerHTML = `
-    ${t.status === 'closed' ? '<div class="closed-banner">🔴 This terminal is currently closed.</div>' : ''}
-    <div class="detail-stats">
-      <div class="detail-stat"><div class="detail-stat-val ${waitClass(t)}">${waitDisplay(t)}</div><div class="detail-stat-lbl">Min Wait</div></div>
-      <div class="detail-stat"><div class="detail-stat-val">${t.trucks_in_queue}</div><div class="detail-stat-lbl">In Queue</div></div>
-      <div class="detail-stat"><div class="detail-stat-val">${openLanes}/${t.lanes.length}</div><div class="detail-stat-lbl">Lanes Open</div></div>
-    </div>
-    <div class="detail-section">
-      <div class="detail-section-title">Lane Status</div>
-      ${t.lanes.map(l => `
-        <div class="lane-row">
-          <div>
-            <div class="lane-row-name">Lane ${l.number}</div>
-            ${l.reason ? `<div class="lane-row-note">${l.reason}${l.reopen ? ' · Reopen: ' + l.reopen : ''}</div>` : ''}
-          </div>
-          <div class="status-badge badge-${l.status}">${l.status}</div>
-        </div>`).join('')}
-    </div>
-    <div class="detail-section">
-      <div class="detail-section-title">Products Available</div>
-      ${t.products.map(p => `
-        <div class="prod-row">
-          <span>${p.name}</span>
-          <div style="display:flex;align-items:center;gap:8px">
-            ${p.note ? `<span class="prod-note">${p.note}</span>` : ''}
-            <span class="${p.available ? 'prod-status-ok' : 'prod-status-no'}">${p.available ? '✓' : '✕'}</span>
-          </div>
-        </div>`).join('')}
-    </div>
-    <button class="submit-btn" onclick="openReport(${t.id})" style="background:var(--surface2);color:var(--red);border:1px solid var(--red-border)">
-      + Submit a Wait Time Report
-    </button>
-  `;
-  document.getElementById('modalOverlay').classList.add('open');
+const t = terminals.find(t => t.id === id);
+if (!t) return;
+activeTerminalId = id;
+document.getElementById('modalTitle').textContent = t.name;
+const openLanes = t.lanes.filter(l => l.status === 'open').length;
+document.getElementById('modalBody').innerHTML =     ${t.status === 'closed' ? '<div class="closed-banner">🔴 This terminal is currently closed.</div>' : ''}     <div class="detail-stats">       <div class="detail-stat"><div class="detail-stat-val ${waitClass(t)}">${waitDisplay(t)}</div><div class="detail-stat-lbl">Min Wait</div></div>       <div class="detail-stat"><div class="detail-stat-val">${t.trucks_in_queue}</div><div class="detail-stat-lbl">In Queue</div></div>       <div class="detail-stat"><div class="detail-stat-val">${openLanes}/${t.lanes.length}</div><div class="detail-stat-lbl">Lanes Open</div></div>     </div>     <div class="detail-section">       <div class="detail-section-title">Lane Status</div>       ${t.lanes.map(l =><div class="lane-row"><div><div class="lane-row-name">Lane ${l.number}</div>${l.reason ? <div class="lane-row-note">${l.reason}${l.reopen ? ' · Reopen: ' + l.reopen : ''}</div> : ''}</div><div class="status-badge badge-${l.status}">${l.status}</div></div>).join('')}     </div>     <div class="detail-section">       <div class="detail-section-title">Products Available</div>       ${t.products.map(p => <div class="prod-row"><span>${p.name}</span><div style="display:flex;align-items:center;gap:8px">${p.note ? <span class="prod-note">${p.note}</span> : ''}<span class="${p.available ? 'prod-status-ok' : 'prod-status-no'}">${p.available ? '✓' : '✕'}</span></div></div>).join('')}     </div>     <button class="submit-btn" onclick="openReport(${t.id})" style="background:var(--surface2);color:var(--red);border:1px solid var(--red-border)">+ Submit a Wait Time Report</button>;
+document.getElementById('modalOverlay').classList.add('open');
 }
-
-// ─── Geofence helpers (kept for when we re-enable) ───────────────────────────
-
-// ─── Report modal ─────────────────────────────────────────────────────────────
 async function openReport(id) {
-  const t = terminals.find(t => t.id === id);
-  if (!t) return;
-  activeTerminalId = id;
-  selectedWait = null;
-  selectedIssues = [];
-
-  if (GEOFENCE_ENABLED) {
-    // Geofence check (currently disabled)
-    document.getElementById('modalTitle').textContent = '📍 Verifying Location...';
-    document.getElementById('modalBody').innerHTML = `
-      <div style="text-align:center;padding:32px 20px;color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;">
-        <div style="width:32px;height:32px;border:3px solid var(--border2);border-top-color:var(--red);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 14px;"></div>
-        Checking your location...
-      </div>`;
-    document.getElementById('modalOverlay').classList.add('open');
-    // (geofence logic here when re-enabled)
-  } else {
-    document.getElementById('modalTitle').textContent = '📋 Report — ' + t.name.split('—')[0].trim();
-    document.getElementById('modalOverlay').classList.add('open');
-    showReportForm(t);
-  }
+const t = terminals.find(t => t.id === id);
+if (!t) return;
+activeTerminalId = id;
+selectedWait = null;
+selectedIssues = [];
+document.getElementById('modalTitle').textContent = '📋 Report — ' + t.name.split('—')[0].trim();
+document.getElementById('modalOverlay').classList.add('open');
+showReportForm(t);
 }
-
-// ─── Report form ──────────────────────────────────────────────────────────────
 function showReportForm(t) {
-  document.getElementById('modalBody').innerHTML = `
-    <div class="report-form">
-      <label class="form-label">Current Wait Time (minutes)</label>
-      <div class="wait-options">
-        ${['Under 15','20','30','45','60','75','90+','Terminal Closed'].map(w => `
-          <div class="wait-opt" onclick="selectWait(this, '${w}')">${w}</div>`).join('')}
-      </div>
-      <label class="form-label">Any Issues? (optional)</label>
-      <div class="chip-group">
-        ${['Lane Closed','Product Out','Meter Issue','Gate Problem','Safety Concern','Equipment Failure','Vapor Recovery Issue'].map(i => `
-          <div class="chip" onclick="toggleIssue(this, '${i}')">${i}</div>`).join('')}
-      </div>
-      <label class="form-label">Notes (optional)</label>
-      <textarea id="reportNote" placeholder="e.g. Lane 3 is down, meter issue on north rack..."></textarea>
-      <button class="submit-btn" id="submitBtn" onclick="submitReport()" disabled>
-        Submit Report
-      </button>
-    </div>
-  `;
+document.getElementById('modalBody').innerHTML =     <div class="report-form">       <label class="form-label">Current Wait Time (minutes)</label>       <div class="wait-options">         ${['Under 15','20','30','45','60','75','90+','Terminal Closed'].map(w =><div class="wait-opt" onclick="selectWait(this, '${w}')">${w}</div>).join('')}       </div>       <label class="form-label">Any Issues? (optional)</label>       <div class="chip-group">         ${['Lane Closed','Product Out','Meter Issue','Gate Problem','Safety Concern','Equipment Failure','Vapor Recovery Issue'].map(i => <div class="chip" onclick="toggleIssue(this, '${i}')">${i}</div>).join('')}       </div>       <label class="form-label">Notes (optional)</label>       <textarea id="reportNote" placeholder="e.g. Lane 3 is down, meter issue on north rack..."></textarea>       <button class="submit-btn" id="submitBtn" onclick="submitReport()" disabled>Submit Report</button>     </div>;
 }
-
 function selectWait(el, val) {
-  document.querySelectorAll('.wait-opt').forEach(e => e.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedWait = val;
-  document.getElementById('submitBtn').disabled = false;
+document.querySelectorAll('.wait-opt').forEach(e => e.classList.remove('selected'));
+el.classList.add('selected');
+selectedWait = val;
+document.getElementById('submitBtn').disabled = false;
 }
-
 function toggleIssue(el, val) {
-  el.classList.toggle('selected');
-  if (selectedIssues.includes(val)) selectedIssues = selectedIssues.filter(i => i !== val);
-  else selectedIssues.push(val);
+el.classList.toggle('selected');
+if (selectedIssues.includes(val)) selectedIssues = selectedIssues.filter(i => i !== val);
+else selectedIssues.push(val);
 }
-
 async function submitReport() {
-  if (!selectedWait) return;
-  const btn = document.getElementById('submitBtn');
-  btn.textContent = 'Submitting...';
-  btn.disabled = true;
-  const waitMap = { 'Under 15': 10, '20': 20, '30': 30, '45': 45, '60': 60, '75': 75, '90+': 90, 'Terminal Closed': 0 };
-  const waitMinutes = waitMap[selectedWait] ?? 30;
-  try {
-    const res = await fetch(`/api/terminals/${activeTerminalId}/report`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        wait_minutes: waitMinutes,
-        lane_issue: selectedIssues.join(', '),
-        note: document.getElementById('reportNote')?.value || ''
-      })
-    });
-    const data = await res.json();
-    const idx = terminals.findIndex(t => t.id === activeTerminalId);
-    if (idx > -1) terminals[idx] = data.terminal;
-    closeModal();
-    renderSummary();
-    renderList();
-    showToast('✓ Report submitted — thank you!');
-  } catch (e) {
-    btn.textContent = 'Submit Report';
-    btn.disabled = false;
-    showToast('Error submitting. Try again.', true);
-  }
-}
-
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-}
-document.getElementById('modalOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
+if (!selectedWait) return;
+const btn = document.getElementById('submitBtn');
+btn.textContent = 'Submitting...';
+btn.disabled = true;
+const waitMap = { 'Under 15': 10, '20': 20, '30': 30, '45': 45, '60': 60, '75': 75, '90+': 90, 'Terminal Closed': 0 };
+const waitMinutes = waitMap[selectedWait] ?? 30;
+try {
+const res = await fetch(/api/terminals/${activeTerminalId}/report, {
+method: 'POST', headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ wait_minutes: waitMinutes, lane_issue: selectedIssues.join(', '), note: document.getElementById('reportNote')?.value || '' })
 });
-
-function showToast(msg, isError = false) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast' + (isError ? ' error' : '');
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3500);
+const data = await res.json();
+const idx = terminals.findIndex(t => t.id === activeTerminalId);
+if (idx > -1) terminals[idx] = data.terminal;
+closeModal(); renderSummary(); renderList();
+showToast('✓ Report submitted — thank you!');
+} catch (e) {
+btn.textContent = 'Submit Report';
+btn.disabled = false;
+showToast('Error submitting. Try again.', true);
 }
-
-// ─── Start ────────────────────────────────────────────────────────────────────
+}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+document.getElementById('modalOverlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+function showToast(msg, isError = false) {
+const t = document.getElementById('toast');
+t.textContent = msg;
+t.className = 'toast' + (isError ? ' error' : '');
+t.classList.add('show');
+setTimeout(() => t.classList.remove('show'), 3500);
+}
 loadTerminals();
 setInterval(loadTerminals, 60000);
 </script>

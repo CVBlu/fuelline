@@ -10,8 +10,8 @@
   :root { --bg: #0a0c10; --surface: #111318; --surface2: #181b22; --border: #1f2330; --border2: #2a2f3d; --text: #e8eaf0; --muted: #5a6175; --muted2: #7a8299; --red: #cc1122; --red-glow: rgba(204,17,34,0.18); --red-border: rgba(204,17,34,0.35); --green: #22c55e; --amber: #f59e0b; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
-  .banner-wrap { width: 100%; background: #0a0c10; padding: 0; display: flex; justify-content: center; position: sticky; top: 0; z-index: 100; overflow: hidden; max-height: 90px; border-bottom: 2px solid #2a0509; }
-  .banner-wrap img { width: 100%; max-width: 680px; height: 90px; object-fit: cover; object-position: center 45%; display: block; }
+  .banner-wrap { width: 100%; background: #0a0c10; padding: 0; display: flex; justify-content: center; position: sticky; top: 0; z-index: 100; border-bottom: 2px solid #2a0509; }
+  .banner-wrap img { width: 100%; max-width: 680px; height: auto; display: block; }
   .nav-bar { display: none; }
   main { max-width: 680px; margin: 0 auto; padding: 14px 16px 32px; }
   .summary-strip { display: flex; gap: 8px; margin-bottom: 14px; }
@@ -90,7 +90,7 @@
 </head>
 <body>
 <div class="banner-wrap">
-  <img src="/banner.jpg" alt="FuelLine">
+  <img src="/banner.png" alt="FuelLine">
 </div>
 <div class="nav-bar"></div>
 <main>

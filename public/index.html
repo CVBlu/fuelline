@@ -195,7 +195,7 @@ function openDetail(id) {
   var lanes = t.lanes.map(function(l) {
     return '<div class="lane-row"><div><div class="lane-row-name">Lane ' + l.number + '</div>' +
       (l.reason ? '<div class="lane-row-note">' + l.reason + (l.reopen ? ' - Reopen: ' + l.reopen : '') + '</div>' : '') +
-      '</div><div class="status-badge badge-' + l.status + '">' + l.status + '</div></div>';
+      '</div><div class="status-badge badge-' + (l.status === 'closed' ? 'closed' : 'open') + '">' + (l.status === 'closed' ? 'Closed' : 'Open') + '</div></div>';
   }).join('');
   var prods = t.products.map(function(p) {
     return '<div class="prod-row"><span>' + p.name + '</span><div style="display:flex;align-items:center;gap:8px">' +
@@ -302,6 +302,7 @@ setInterval(loadTerminals, 60000);
 </script>
 </body>
 </html> 
+ 
  
  
  

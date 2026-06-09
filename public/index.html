@@ -152,7 +152,7 @@ function renderList() {
   container.innerHTML = terminals.map(function(t) {
     var sc = t.status === 'open' ? 'var(--green)' : t.status === 'busy' ? 'var(--amber)' : 'var(--red)';
     var lanes = t.lanes.map(function(l) {
-      return '<div class="lane-pill lane-' + (l.status === 'closed' ? 'closed-pill' : l.status) + '">Lane ' + l.number + (l.status === 'closed' ? ' X' : '') + '</div>';
+      return '<div class="lane-pill lane-' + (l.status === 'closed' ? 'closed-pill' : 'open') + '">Lane ' + l.number + (l.status === 'closed' ? ' X' : '') + '</div>';
     }).join('');
     var prods = t.products.map(function(p) {
       return '<div class="prod-tag ' + (p.available ? '' : 'prod-unavail') + '">' + p.name + '</div>';
@@ -302,6 +302,7 @@ setInterval(loadTerminals, 60000);
 </script>
 </body>
 </html> 
+ 
  
  
  

@@ -240,7 +240,7 @@ function showReportForm(t) {
     '<div class="report-form">' +
     '<label class="form-label">Current Wait Time (minutes)</label>' +
     '<div class="wait-options">' + waitOpts + '</div>' +
-    '<label class="form-label">Mark Closed Lanes</label>' + '<div class="chip-group">' + (t?t.lanes.map(function(l){return '<div class="chip" onclick="toggleLane(this,'+l.number+')">Lane '+l.number+'</div>';}).join(''):'') + '</div>' + '<label class="form-label">Any Other Issues? (optional)</label>' +
+    '<label class="form-label">Mark Closed Lanes</label>' + '<div class="chip-group">' + (t&&t.lanes?t.lanes.map(function(l){return '<div class="chip" onclick="toggleLane(this,'+l.number+')">Lane '+l.number+'</div>';}).join(''):'') + '</div>' + '<label class="form-label">Any Other Issues? (optional)</label>' +
     '<div class="chip-group">' + chips + '</div>' +
     '<label class="form-label">Notes (optional)</label>' +
     '<textarea id="reportNote" placeholder="e.g. Lane 3 is down..."></textarea>' +

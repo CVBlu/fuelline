@@ -96,19 +96,19 @@
 </head>
 <body>
 <div class="banner-wrap">
-  <img src="/banner.png" alt="FuelLine — Your Road to a Faster Load">
+  <img src="/banner.png" alt="FuelLine - Your Road to a Faster Load">
 </div>
 <div class="nav-bar"></div>
 <main>
   <div class="summary-strip" id="summaryStrip"></div>
-  <div class="section-label">Terminals — Sorted by Distance</div>
+  <div class="section-label">Terminals - Sorted by Distance</div>
   <div id="terminalList"><div class="loading">Loading terminals...</div></div>
 </main>
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal" id="modal">
     <div class="modal-header">
       <div class="modal-title" id="modalTitle">Terminal</div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="modal-close" onclick="closeModal()">X</button>
     </div>
     <div class="modal-body" id="modalBody"></div>
   </div>
@@ -121,101 +121,186 @@ let terminals = [];
 let activeTerminalId = null;
 let selectedWait = null;
 let selectedIssues = [];
+
 async function loadTerminals() {
-try {
-const res = await fetch('/api/terminals');
-terminals = await res.json();
-renderSummary();
-renderList();
-} catch (e) {
-document.getElementById('terminalList').innerHTML = '<div class="loading">Could not load terminals. Please refresh.</div>';
+  try {
+    const res = await fetch('/api/terminals');
+    terminals = await res.json();
+    renderSummary();
+    renderList();
+  } catch (e) {
+    document.getElementById('terminalList').innerHTML = '<div class="loading">Could not load terminals. Please refresh.</div>';
+  }
 }
-}
+
 function renderSummary() {
-const open = terminals.filter(t => t.status === 'open').length;
-const busy = terminals.filter(t => t.status === 'busy').length;
-const closed = terminals.filter(t => t.status === 'closed').length;
-document.getElementById('summaryStrip').innerHTML =      <div class="summary-pill"><div class="pill-dot dot-green"></div>${open} Open</div>     <div class="summary-pill"><div class="pill-dot dot-amber"></div>${busy} Busy</div>     <div class="summary-pill"><div class="pill-dot dot-red"></div>${closed} Closed</div>;
+  const open = terminals.filter(t => t.status === 'open').length;
+  const busy = terminals.filter(t => t.status === 'busy').length;
+  const closed = terminals.filter(t => t.status === 'closed').length;
+  document.getElementById('summaryStrip').innerHTML =
+    '<div class="summary-pill"><div class="pill-dot dot-green"></div>' + open + ' Open</div>' +
+    '<div class="summary-pill"><div class="pill-dot dot-amber"></div>' + busy + ' Busy</div>' +
+    '<div class="summary-pill"><div class="pill-dot dot-red"></div>' + closed + ' Closed</div>';
 }
+
 function waitClass(t) {
-if (t.status === 'closed') return 'wait-closed';
-if (t.wait_minutes < 20) return 'wait-green';
-if (t.wait_minutes < 50) return 'wait-amber';
-return 'wait-red';
+  if (t.status === 'closed') return 'wait-closed';
+  if (t.wait_minutes < 20) return 'wait-green';
+  if (t.wait_minutes < 50) return 'wait-amber';
+  return 'wait-red';
 }
 function waitDisplay(t) { return t.status === 'closed' ? '--' : t.wait_minutes; }
 function statusLabel(s) { return s === 'open' ? 'Open' : s === 'busy' ? 'Busy' : 'Closed'; }
+
 function renderList() {
-const container = document.getElementById('terminalList');
-if (!terminals.length) { container.innerHTML = '<div class="loading">No terminals found.</div>'; return; }
-container.innerHTML = terminals.map(t =>     <div class="terminal-card status-${t.status}" onclick="openDetail(${t.id})">       <div class="card-top">         <div class="card-left">           <div class="status-stripe stripe-${t.status}">             <div class="stripe-dot" style="background:${t.status==='open'?'var(--green)':t.status==='busy'?'var(--amber)':'var(--red)'}"></div>             ${statusLabel(t.status)}           </div>           <div class="terminal-name">${t.name}</div>           <div class="terminal-address">${t.address}</div>           <div class="terminal-meta">             <span>📍 ${t.distance_miles} mi away</span>             <span>🚛 ${t.trucks_in_queue} in queue</span>           </div>         </div>         <div class="wait-box">           <div class="wait-number ${waitClass(t)}">${waitDisplay(t)}</div>           <div class="wait-unit">${t.status === 'closed' ? 'CLOSED' : 'MIN WAIT'}</div>         </div>       </div>       <div class="card-lanes">         ${t.lanes.map(l =><div class="lane-pill lane-${l.status === 'closed' ? 'closed-pill' : l.status}">Lane l.number{l.number}
-l.number{l.status === 'closed' ? ' ✕' : ''}</div>).join('')}       </div>       <div class="card-products">         ${t.products.map(p => <div class="prod-tag ${p.available ? '' : 'prod-unavail'}">${p.name}</div>).join('')}       </div>       <div class="card-footer">         <span>Updated ${t.last_updated}</span>         <button class="report-btn" onclick="event.stopPropagation(); openReport(${t.id})">+ Report Wait Time</button>       </div>     </div>).join('');
+  const container = document.getElementById('terminalList');
+  if (!terminals.length) { container.innerHTML = '<div class="loading">No terminals found.</div>'; return; }
+  container.innerHTML = terminals.map(function(t) {
+    var statusColor = t.status === 'open' ? 'var(--green)' : t.status === 'busy' ? 'var(--amber)' : 'var(--red)';
+    var lanes = t.lanes.map(function(l) {
+      return '<div class="lane-pill lane-' + (l.status === 'closed' ? 'closed-pill' : l.status) + '">Lane ' + l.number + (l.status === 'closed' ? ' X' : '') + '</div>';
+    }).join('');
+    var products = t.products.map(function(p) {
+      return '<div class="prod-tag ' + (p.available ? '' : 'prod-unavail') + '">' + p.name + '</div>';
+    }).join('');
+    return '<div class="terminal-card status-' + t.status + '" onclick="openDetail(' + t.id + ')">' +
+      '<div class="card-top">' +
+        '<div class="card-left">' +
+          '<div class="status-stripe stripe-' + t.status + '">' +
+            '<div class="stripe-dot" style="background:' + statusColor + '"></div>' +
+            statusLabel(t.status) +
+          '</div>' +
+          '<div class="terminal-name">' + t.name + '</div>' +
+          '<div class="terminal-address">' + t.address + '</div>' +
+          '<div class="terminal-meta">' +
+            '<span>' + t.distance_miles + ' mi away</span>' +
+            '<span>' + t.trucks_in_queue + ' in queue</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="wait-box">' +
+          '<div class="wait-number ' + waitClass(t) + '">' + waitDisplay(t) + '</div>' +
+          '<div class="wait-unit">' + (t.status === 'closed' ? 'CLOSED' : 'MIN WAIT') + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="card-lanes">' + lanes + '</div>' +
+      '<div class="card-products">' + products + '</div>' +
+      '<div class="card-footer">' +
+        '<span>Updated ' + t.last_updated + '</span>' +
+        '<button class="report-btn" onclick="event.stopPropagation(); openReport(' + t.id + ')">+ Report Wait Time</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
 }
+
 function openDetail(id) {
-const t = terminals.find(t => t.id === id);
-if (!t) return;
-activeTerminalId = id;
-document.getElementById('modalTitle').textContent = t.name;
-const openLanes = t.lanes.filter(l => l.status === 'open').length;
-document.getElementById('modalBody').innerHTML =     ${t.status === 'closed' ? '<div class="closed-banner">🔴 This terminal is currently closed.</div>' : ''}     <div class="detail-stats">       <div class="detail-stat"><div class="detail-stat-val ${waitClass(t)}">${waitDisplay(t)}</div><div class="detail-stat-lbl">Min Wait</div></div>       <div class="detail-stat"><div class="detail-stat-val">${t.trucks_in_queue}</div><div class="detail-stat-lbl">In Queue</div></div>       <div class="detail-stat"><div class="detail-stat-val">${openLanes}/${t.lanes.length}</div><div class="detail-stat-lbl">Lanes Open</div></div>     </div>     <div class="detail-section">       <div class="detail-section-title">Lane Status</div>       ${t.lanes.map(l =><div class="lane-row"><div><div class="lane-row-name">Lane ${l.number}</div>${l.reason ? <div class="lane-row-note">${l.reason}${l.reopen ? ' · Reopen: ' + l.reopen : ''}</div> : ''}</div><div class="status-badge badge-${l.status}">${l.status}</div></div>).join('')}     </div>     <div class="detail-section">       <div class="detail-section-title">Products Available</div>       ${t.products.map(p => <div class="prod-row"><span>${p.name}</span><div style="display:flex;align-items:center;gap:8px">${p.note ? <span class="prod-note">${p.note}</span> : ''}<span class="${p.available ? 'prod-status-ok' : 'prod-status-no'}">${p.available ? '✓' : '✕'}</span></div></div>).join('')}     </div>     <button class="submit-btn" onclick="openReport(${t.id})" style="background:var(--surface2);color:var(--red);border:1px solid var(--red-border)">+ Submit a Wait Time Report</button>;
-document.getElementById('modalOverlay').classList.add('open');
+  var t = terminals.find(function(t) { return t.id === id; });
+  if (!t) return;
+  activeTerminalId = id;
+  document.getElementById('modalTitle').textContent = t.name;
+  var openLanes = t.lanes.filter(function(l) { return l.status === 'open'; }).length;
+  var lanes = t.lanes.map(function(l) {
+    return '<div class="lane-row"><div><div class="lane-row-name">Lane ' + l.number + '</div>' +
+      (l.reason ? '<div class="lane-row-note">' + l.reason + (l.reopen ? ' - Reopen: ' + l.reopen : '') + '</div>' : '') +
+      '</div><div class="status-badge badge-' + l.status + '">' + l.status + '</div></div>';
+  }).join('');
+  var products = t.products.map(function(p) {
+    return '<div class="prod-row"><span>' + p.name + '</span><div style="display:flex;align-items:center;gap:8px">' +
+      (p.note ? '<span class="prod-note">' + p.note + '</span>' : '') +
+      '<span class="' + (p.available ? 'prod-status-ok' : 'prod-status-no') + '">' + (p.available ? 'OK' : 'X') + '</span>' +
+      '</div></div>';
+  }).join('');
+  document.getElementById('modalBody').innerHTML =
+    (t.status === 'closed' ? '<div class="closed-banner">This terminal is currently closed.</div>' : '') +
+    '<div class="detail-stats">' +
+      '<div class="detail-stat"><div class="detail-stat-val ' + waitClass(t) + '">' + waitDisplay(t) + '</div><div class="detail-stat-lbl">Min Wait</div></div>' +
+      '<div class="detail-stat"><div class="detail-stat-val">' + t.trucks_in_queue + '</div><div class="detail-stat-lbl">In Queue</div></div>' +
+      '<div class="detail-stat"><div class="detail-stat-val">' + openLanes + '/' + t.lanes.length + '</div><div class="detail-stat-lbl">Lanes Open</div></div>' +
+    '</div>' +
+    '<div class="detail-section"><div class="detail-section-title">Lane Status</div>' + lanes + '</div>' +
+    '<div class="detail-section"><div class="detail-section-title">Products Available</div>' + products + '</div>' +
+    '<button class="submit-btn" onclick="openReport(' + t.id + ')" style="background:var(--surface2);color:var(--red);border:1px solid var(--red-border)">+ Submit a Wait Time Report</button>';
+  document.getElementById('modalOverlay').classList.add('open');
 }
+
 async function openReport(id) {
-const t = terminals.find(t => t.id === id);
-if (!t) return;
-activeTerminalId = id;
-selectedWait = null;
-selectedIssues = [];
-document.getElementById('modalTitle').textContent = '📋 Report — ' + t.name.split('—')[0].trim();
-document.getElementById('modalOverlay').classList.add('open');
-showReportForm(t);
+  var t = terminals.find(function(t) { return t.id === id; });
+  if (!t) return;
+  activeTerminalId = id;
+  selectedWait = null;
+  selectedIssues = [];
+  document.getElementById('modalTitle').textContent = 'Report - ' + t.name.split('-')[0].trim();
+  document.getElementById('modalOverlay').classList.add('open');
+  showReportForm(t);
 }
+
 function showReportForm(t) {
-document.getElementById('modalBody').innerHTML =     <div class="report-form">       <label class="form-label">Current Wait Time (minutes)</label>       <div class="wait-options">         ${['Under 15','20','30','45','60','75','90+','Terminal Closed'].map(w =><div class="wait-opt" onclick="selectWait(this, '${w}')">${w}</div>).join('')}       </div>       <label class="form-label">Any Issues? (optional)</label>       <div class="chip-group">         ${['Lane Closed','Product Out','Meter Issue','Gate Problem','Safety Concern','Equipment Failure','Vapor Recovery Issue'].map(i => <div class="chip" onclick="toggleIssue(this, '${i}')">${i}</div>).join('')}       </div>       <label class="form-label">Notes (optional)</label>       <textarea id="reportNote" placeholder="e.g. Lane 3 is down, meter issue on north rack..."></textarea>       <button class="submit-btn" id="submitBtn" onclick="submitReport()" disabled>Submit Report</button>     </div>;
+  var waitOpts = ['Under 15','20','30','45','60','75','90+','Terminal Closed'].map(function(w) {
+    return '<div class="wait-opt" onclick="selectWait(this, '' + w + '')">' + w + '</div>';
+  }).join('');
+  var chips = ['Lane Closed','Product Out','Meter Issue','Gate Problem','Safety Concern','Equipment Failure','Vapor Recovery Issue'].map(function(i) {
+    return '<div class="chip" onclick="toggleIssue(this, '' + i + '')">' + i + '</div>';
+  }).join('');
+  document.getElementById('modalBody').innerHTML =
+    '<div class="report-form">' +
+      '<label class="form-label">Current Wait Time (minutes)</label>' +
+      '<div class="wait-options">' + waitOpts + '</div>' +
+      '<label class="form-label">Any Issues? (optional)</label>' +
+      '<div class="chip-group">' + chips + '</div>' +
+      '<label class="form-label">Notes (optional)</label>' +
+      '<textarea id="reportNote" placeholder="e.g. Lane 3 is down, meter issue on north rack..."></textarea>' +
+      '<button class="submit-btn" id="submitBtn" onclick="submitReport()" disabled>Submit Report</button>' +
+    '</div>';
 }
+
 function selectWait(el, val) {
-document.querySelectorAll('.wait-opt').forEach(e => e.classList.remove('selected'));
-el.classList.add('selected');
-selectedWait = val;
-document.getElementById('submitBtn').disabled = false;
+  document.querySelectorAll('.wait-opt').forEach(function(e) { e.classList.remove('selected'); });
+  el.classList.add('selected');
+  selectedWait = val;
+  document.getElementById('submitBtn').disabled = false;
 }
+
 function toggleIssue(el, val) {
-el.classList.toggle('selected');
-if (selectedIssues.includes(val)) selectedIssues = selectedIssues.filter(i => i !== val);
-else selectedIssues.push(val);
+  el.classList.toggle('selected');
+  if (selectedIssues.includes(val)) selectedIssues = selectedIssues.filter(function(i) { return i !== val; });
+  else selectedIssues.push(val);
 }
+
 async function submitReport() {
-if (!selectedWait) return;
-const btn = document.getElementById('submitBtn');
-btn.textContent = 'Submitting...';
-btn.disabled = true;
-const waitMap = { 'Under 15': 10, '20': 20, '30': 30, '45': 45, '60': 60, '75': 75, '90+': 90, 'Terminal Closed': 0 };
-const waitMinutes = waitMap[selectedWait] ?? 30;
-try {
-const res = await fetch(/api/terminals/${activeTerminalId}/report, {
-method: 'POST', headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ wait_minutes: waitMinutes, lane_issue: selectedIssues.join(', '), note: document.getElementById('reportNote')?.value || '' })
-});
-const data = await res.json();
-const idx = terminals.findIndex(t => t.id === activeTerminalId);
-if (idx > -1) terminals[idx] = data.terminal;
-closeModal(); renderSummary(); renderList();
-showToast('✓ Report submitted — thank you!');
-} catch (e) {
-btn.textContent = 'Submit Report';
-btn.disabled = false;
-showToast('Error submitting. Try again.', true);
+  if (!selectedWait) return;
+  var btn = document.getElementById('submitBtn');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+  var waitMap = { 'Under 15': 10, '20': 20, '30': 30, '45': 45, '60': 60, '75': 75, '90+': 90, 'Terminal Closed': 0 };
+  var waitMinutes = waitMap[selectedWait] !== undefined ? waitMap[selectedWait] : 30;
+  try {
+    var res = await fetch('/api/terminals/' + activeTerminalId + '/report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ wait_minutes: waitMinutes, lane_issue: selectedIssues.join(', '), note: document.getElementById('reportNote') ? document.getElementById('reportNote').value : '' })
+    });
+    var data = await res.json();
+    var idx = terminals.findIndex(function(t) { return t.id === activeTerminalId; });
+    if (idx > -1) terminals[idx] = data.terminal;
+    closeModal(); renderSummary(); renderList();
+    showToast('Report submitted - thank you!');
+  } catch (e) {
+    btn.textContent = 'Submit Report';
+    btn.disabled = false;
+    showToast('Error submitting. Try again.', true);
+  }
 }
-}
+
 function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
 document.getElementById('modalOverlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
-function showToast(msg, isError = false) {
-const t = document.getElementById('toast');
-t.textContent = msg;
-t.className = 'toast' + (isError ? ' error' : '');
-t.classList.add('show');
-setTimeout(() => t.classList.remove('show'), 3500);
+
+function showToast(msg, isError) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' error' : '');
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 3500);
 }
+
 loadTerminals();
 setInterval(loadTerminals, 60000);
 </script>

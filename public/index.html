@@ -174,7 +174,7 @@ function renderList() {
         '</div>' +
       '</div>' +
       '<div class="card-lanes">' + lanes + '</div>' +
-      '<div class="card-note">' + (t.note ? 'Note: ' + t.note : '') + '</div>' +
+      '<div class="card-note">Issues: ' + (t.note ? t.note : '') + '</div>' +
       '<div class="card-footer">' +
         '<span>Updated ' + t.last_updated + '</span>' +
         '<button class="report-btn" onclick="event.stopPropagation();openReport(' + t.id + ')">+ Report Wait Time</button>' +
@@ -295,6 +295,7 @@ setInterval(loadTerminals, 60000);
 </script>
 </body>
 </html> 
+ 
  
  
  

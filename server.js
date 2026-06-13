@@ -269,6 +269,7 @@ app.post('/api/terminals/:id/report', (req, res) => {
   }
 
   if (note) terminal.note = note;
+  if (lane_issue) terminal.lane_issue = lane_issue;
 
   if (wait_minutes !== undefined) {
     terminal.wait_minutes = parseInt(wait_minutes);

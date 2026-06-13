@@ -270,6 +270,7 @@ app.post('/api/terminals/:id/report', (req, res) => {
 
   if (note) terminal.note = note;
   if (lane_issue) terminal.lane_issue = lane_issue;
+  terminal.report_time = Date.now();
 
   if (wait_minutes !== undefined) {
     terminal.wait_minutes = parseInt(wait_minutes);
@@ -302,6 +303,23 @@ app.get('*', (req, res) => {
 });
 
 // ─── Start server ─────────────────────────────────────────────────
+// Auto-reset terminal data older than 4 hours
+setInterval(function() {
+  var fourHours = 4 * 60 * 60 * 1000;
+  terminals.forEach(function(t) {
+    if (t.report_time && (Date.now() - t.report_time) > fourHours) {
+      t.wait_minutes = 0;
+      t.trucks_in_queue = 0;
+      t.status = 'open';
+      t.note = null;
+      t.lane_issue = null;
+      t.last_updated = 'Pending reports';
+      t.report_time = null;
+      t.lanes.forEach(function(l) { l.status = 'open'; });
+    }
+  });
+}, 60000);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`FuelLine is running on port ${PORT}`);

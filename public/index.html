@@ -154,9 +154,6 @@ function renderList() {
     var lanes = t.lanes.map(function(l) {
       return '<div class="lane-pill lane-' + (l.status === 'closed' ? 'closed-pill' : 'open') + '">Lane ' + l.number + (l.status === 'closed' ? ' X' : '') + '</div>';
     }).join('');
-    var prods = t.products.map(function(p) {
-      return '<div class="prod-tag ' + (p.available ? '' : 'prod-unavail') + '">' + p.name + '</div>';
-    }).join('');
     return '<div class="terminal-card status-' + t.status + '" onclick="openDetail(' + t.id + ')">'  +
       '<div class="card-top">' +
         '<div class="card-left">' +
@@ -177,7 +174,6 @@ function renderList() {
         '</div>' +
       '</div>' +
       '<div class="card-lanes">' + lanes + '</div>' +
-      '<div class="card-products">' + prods + '</div>' +
       '<div class="card-footer">' +
         '<span>Updated ' + t.last_updated + '</span>' +
         '<button class="report-btn" onclick="event.stopPropagation();openReport(' + t.id + ')">+ Report Wait Time</button>' +
@@ -196,12 +192,6 @@ function openDetail(id) {
     return '<div class="lane-row"><div><div class="lane-row-name">Lane ' + l.number + '</div>' +
       (l.reason ? '<div class="lane-row-note">' + l.reason + (l.reopen ? ' - Reopen: ' + l.reopen : '') + '</div>' : '') +
       '</div><div class="status-badge badge-' + (l.status === 'closed' ? 'closed' : 'open') + '">' + (l.status === 'closed' ? 'Closed' : 'Open') + '</div></div>';
-  }).join('');
-  var prods = t.products.map(function(p) {
-    return '<div class="prod-row"><span>' + p.name + '</span><div style="display:flex;align-items:center;gap:8px">' +
-      (p.note ? '<span class="prod-note">' + p.note + '</span>' : '') +
-      '<span class="' + (p.available ? 'prod-status-ok' : 'prod-status-no') + '">' + (p.available ? 'OK' : 'X') + '</span>' +
-      '</div></div>';
   }).join('');
   document.getElementById('modalBody').innerHTML =
     (t.status === 'closed' ? '<div class="closed-banner">This terminal is currently closed.</div>' : '') +
@@ -304,6 +294,7 @@ setInterval(loadTerminals, 60000);
 </script>
 </body>
 </html> 
+ 
  
  
  

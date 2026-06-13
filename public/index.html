@@ -174,7 +174,8 @@ function renderList() {
         '</div>' +
       '</div>' +
       '<div class="card-lanes">' + lanes + '</div>' +
-      '<div class="card-footer">' + (t.note ? '<div style="padding:0 16px 10px;font-size:12px;color:var(--muted2);">Note: ' + t.note + '</div>' : '') +
+      '<div style="padding:8px 16px;font-size:12px;color:var(--muted2);border-top:1px solid var(--border);">' + (t.note ? 'Note: ' + t.note : '') + '</div>' +
+      '<div class="card-footer">' +
         '<span>Updated ' + t.last_updated + '</span>' +
         '<button class="report-btn" onclick="event.stopPropagation();openReport(' + t.id + ')">+ Report Wait Time</button>' +
       '</div>' +
@@ -294,6 +295,7 @@ setInterval(loadTerminals, 60000);
 </script>
 </body>
 </html> 
+ 
  
  
  

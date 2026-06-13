@@ -159,7 +159,8 @@ function renderList() {
     var lanes = t.lanes.map(function(l) {
       return '<div class="lane-pill lane-' + (l.status === 'closed' ? 'closed-pill' : 'open') + '">Lane ' + l.number + '</div>';
     }).join('');
-    return '<div class="terminal-card status-' + t.status + '" onclick="openDetail(' + t.id + ')">'  +
+    var borderColor = t.status === 'closed' ? 'var(--red)' : t.wait_minutes < 20 ? 'var(--green)' : t.wait_minutes < 50 ? 'var(--amber)' : 'var(--red)';
+    return '<div class="terminal-card status-' + t.status + '" style="border-left: 4px solid ' + borderColor + ';" onclick="openDetail(' + t.id + ')">'  +
       '<div class="card-top">' +
         '<div class="card-left">' +
           '<div class="status-stripe stripe-' + t.status + '">' +
@@ -301,6 +302,7 @@ setInterval(loadTerminals, 60000);
 </script>
 </body>
 </html> 
+ 
  
  
  

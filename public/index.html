@@ -269,7 +269,7 @@ function submitReport() {
   fetch('/api/terminals/' + activeTerminalId + '/report', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ wait_minutes: waitMinutes, lane_issue: selectedIssues.join(', '), note: note, closed_lanes: closedLanes })
+    body: JSON.stringify({ wait_minutes: waitMinutes, lane_issue: selectedIssues.join(', '), note: note, closed_lanes: closedLanes, submitted_at: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) })
   })
   .then(function(res) { return res.json(); })
   .then(function(data) {
@@ -301,6 +301,7 @@ setInterval(loadTerminals, 60000);
 </script>
 </body>
 </html> 
+ 
  
  
  

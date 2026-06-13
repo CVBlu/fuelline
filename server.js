@@ -274,7 +274,7 @@ app.post('/api/terminals/:id/report', (req, res) => {
 
   if (wait_minutes !== undefined) {
     terminal.wait_minutes = parseInt(wait_minutes);
-    var now = new Date(); var hours = now.getHours(); var mins = now.getMinutes().toString().padStart(2,'0'); var ampm = hours >= 12 ? 'PM' : 'AM'; hours = hours % 12 || 12; terminal.last_updated = hours + ':' + mins + ' ' + ampm;
+    terminal.last_updated = req.body.submitted_at || 'Recently';
     if (wait_minutes === 0) terminal.status = 'closed';
     else if (wait_minutes < 20) terminal.status = 'open';
     else terminal.status = 'busy';

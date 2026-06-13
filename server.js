@@ -259,7 +259,16 @@ app.post('/api/terminals/:id/report', (req, res) => {
   const terminal = terminals.find(t => t.id === parseInt(req.params.id));
   if (!terminal) return res.status(404).json({ error: 'Terminal not found' });
 
-  const { wait_minutes, lane_issue, note } = req.body;
+  const { wait_minutes, lane_issue, note, closed_lanes } = req.body;
+
+  if (closed_lanes && Array.isArray(closed_lanes)) {
+    closed_lanes.forEach(function(num) {
+      var lane = terminal.lanes.find(function(l) { return l.number === num; });
+      if (lane) lane.status = 'closed';
+    });
+  }
+
+  if (note) terminal.note = note;
 
   if (wait_minutes !== undefined) {
     terminal.wait_minutes = parseInt(wait_minutes);

@@ -21,9 +21,9 @@
   .dot-amber { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
   .dot-red { background: var(--red); box-shadow: 0 0 5px var(--red); }
   .section-label { font-family: 'Rajdhani', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; border-left: 2px solid var(--red); padding-left: 8px; }
-  .terminal-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 12px; margin-bottom: 10px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, transform 0.15s; }
-  .terminal-card:hover { border-color: var(--red); transform: translateY(-1px); }
-  .terminal-card.status-closed { opacity: 0.55; }
+  .terminal-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 12px; margin-bottom: 10px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, transform 0.15s; border-left: 4px solid var(--border2); }
+  .terminal-card:hover { border-color: var(--red); border-left-color: var(--red); transform: translateY(-1px); }
+  .terminal-card.status-closed { opacity: 0.55; } .terminal-card.status-open { border-left-color: var(--green); } .terminal-card.status-busy { border-left-color: var(--amber); } .terminal-card.status-closed { border-left-color: var(--red); }
   .card-top { padding: 14px 16px 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .card-left { flex: 1; min-width: 0; }
   .status-stripe { display: inline-flex; align-items: center; gap: 5px; font-family: 'Rajdhani', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; }
@@ -33,7 +33,7 @@
   .terminal-address { font-size: 12px; color: var(--muted2); margin-bottom: 5px; }
   .terminal-meta { font-size: 12px; color: var(--muted2); display: flex; gap: 12px; flex-wrap: wrap; }
   .wait-box { text-align: center; flex-shrink: 0; background: var(--surface2); border: 1px solid var(--border2); border-radius: 10px; padding: 10px 14px; min-width: 72px; }
-  .wait-number { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 42px; line-height: 1; }
+  .wait-number { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 48px; line-height: 1; }
   .wait-unit { font-family: 'Rajdhani', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
   .wait-green { color: var(--green); } .wait-amber { color: var(--amber); } .wait-red { color: var(--red); } .wait-closed { color: var(--muted); }
   .card-lanes { padding: 0 16px 10px; display: flex; gap: 6px; flex-wrap: wrap; }
@@ -295,6 +295,7 @@ setInterval(loadTerminals, 60000);
 </script>
 </body>
 </html> 
+ 
  
  
  

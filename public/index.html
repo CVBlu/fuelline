@@ -170,6 +170,7 @@ function renderList() {
           '<div class="terminal-address">' + t.address + '</div>' +
           '<div class="terminal-meta">' +
             '<span>' + (driverLat ? getMiles(getDistMeters(driverLat,driverLng,t.latitude,t.longitude)) : t.distance_miles) + ' mi away</span>' +
+            '<span> | </span>' +
             '<span>' + t.trucks_in_queue + ' trucks in queue</span>' +
           '</div>' +
         '</div>' +
@@ -300,6 +301,7 @@ setInterval(loadTerminals, 60000);
 </script>
 </body>
 </html> 
+ 
  
  
  

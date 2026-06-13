@@ -44,7 +44,7 @@
   .card-products { padding: 0 16px 12px; display: flex; gap: 5px; flex-wrap: wrap; }
   .prod-tag { font-family: 'Rajdhani', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 9px; border-radius: 4px; background: var(--surface2); color: var(--muted2); border: 1px solid var(--border2); }
   .prod-unavail { color: var(--red); text-decoration: line-through; opacity: 0.6; }
-  .card-footer { border-top: 1px solid var(--border); padding: 9px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted); width: 100%; }
+  .card-note { border-top: 1px solid var(--border); padding: 8px 16px; font-size: 12px; color: var(--muted2); min-height: 32px; } .card-footer { border-top: 1px solid var(--border); padding: 9px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted); }
   .report-btn { font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--red); background: none; border: none; cursor: pointer; padding: 0; }
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; padding: 16px; overflow-y: auto; }
   .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; padding-top: 36px; }
@@ -174,7 +174,7 @@ function renderList() {
         '</div>' +
       '</div>' +
       '<div class="card-lanes">' + lanes + '</div>' +
-      '<div style="padding:8px 16px;font-size:12px;color:var(--muted2);border-top:1px solid var(--border);">' + (t.note ? 'Note: ' + t.note : '') + '</div>' +
+      '<div class="card-note">' + (t.note ? 'Note: ' + t.note : '') + '</div>' +
       '<div class="card-footer">' +
         '<span>Updated ' + t.last_updated + '</span>' +
         '<button class="report-btn" onclick="event.stopPropagation();openReport(' + t.id + ')">+ Report Wait Time</button>' +
@@ -295,6 +295,7 @@ setInterval(loadTerminals, 60000);
 </script>
 </body>
 </html> 
+ 
  
  
  
